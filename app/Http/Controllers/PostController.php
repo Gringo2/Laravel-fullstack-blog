@@ -72,7 +72,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('back.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('back.posts.edit', compact('post','categories'));
     }
 
     /**
@@ -117,7 +118,7 @@ class PostController extends Controller
     public function uploadImage($request){
         $image = $request->file('image');
         $imageName = time().$image->getClientOriginalName();
-        // add the new file 
+        // add the new file
         $image->move(public_path('images'),$imageName);
         $request->merge(['image' => $imageName]);
         // dd($request);
